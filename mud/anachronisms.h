@@ -14,6 +14,7 @@
 #include <stdlib.h>
 #include <errno.h>
 #include <stdarg.h>
+#include <termios.h>
 
 // blib.c
 char* cuserid(char* str);
@@ -27,7 +28,7 @@ void addchar(char* str, char ch);
 
 // key.c
 int keysetup(); // really returns void
-int keysetback(); // really returns void
+void keysetback();
 int key_reprint(); // really returns void
 void key_input(char*ppt, int len_max);
 

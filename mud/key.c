@@ -2,41 +2,32 @@
 /*  Key drivers */
 
 #include <stdio.h>
-/*#include <sgtty.h>*/
-#include <termios.h>
+#include <sgtty.h>
+#define sgttyb termios /*anachronism*/
+#define sg_flags c_lflag /*anachronism*/
+#define gtty(fd, st) tcgetattr(fd, st) /*anachronism*/
+#define stty(fd, st) tcsetattr(fd, TCSANOW, st) /*anachronism*/
 
 long save_flag= -1;
 
 keysetup()
 {
-/*
 	struct sgttyb x;
 	gtty(fileno(stdin),&x);
 	save_flag=x.sg_flags;
 	x.sg_flags&=~ECHO;
-	x.sg_flags|=CBREAK;
+	x.sg_flags&=~ICANON/*|=CBREAK anachronism*/;
 	stty(fileno(stdin),&x);
-*/
-	struct termios ios;
-	tcgetattr(fileno(stdin),&ios);
-	save_flag=ios.c_lflag;
-	ios.c_lflag&=~(ECHO|ICANON);
-	tcsetattr(fileno(stdin),TCSANOW,&ios);
 }
 
+void /*anachronism*/
 keysetback()
 {
-/*
 	struct sgttyb x;
 	if(save_flag== -1) return;
 	gtty(fileno(stdin),&x);
 	x.sg_flags=save_flag;
 	stty(fileno(stdin),&x);
-*/
-	struct termios ios;
-	tcgetattr(fileno(stdin),&ios);
-	ios.c_lflag=save_flag;
-	tcsetattr(fileno(stdin),TCSANOW,&ios);
 }
 
 char key_buff[256];
@@ -85,13 +76,11 @@ int len_max;
 
 key_reprint()
 {
-	extern long pr_due;
-	extern long pr_qcr;
-	pr_qcr=1;
-	pbfr();
-	if((key_mode==0)&&(pr_due))
-		printf("\n%s%s",pr_bf,key_buff);
-	pr_due=0;
-	fflush(stdout);
+extern long pr_due;
+extern long pr_qcr;
+pr_qcr=1;
+pbfr();
+if((key_mode==0)&&(pr_due))printf("\n%s%s",pr_bf,key_buff);
+pr_due=0;
+fflush(stdout);
 }
-
