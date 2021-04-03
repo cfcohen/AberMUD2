@@ -138,7 +138,7 @@ void /*anachronism*/
        c=findzone( oloc( a ), b ) ;
        sprintf( d, "%s%ld"/*anachronism*/, b, c ) ;
        if( ocarrf( a ) ) strcpy( d, "CARRIED" ) ;
-       if( ocarrf( a )==3 ) strcpy( d, "IN ITEM" ) ;
+if( ocarrf( a )==3 ) strcpy( d, "IN ITEM" ) ;
        bprintf( "%-13s%-13s", oname( a ), d ) ;
        if( a%3==2 )bprintf( "\n" ) ;
        if( a%18==17 ) pbfr(  ) ;
@@ -164,7 +164,7 @@ void /*anachronism*/
     if(fl==NULL) goto errk;
     fscanf( fl, "%ld", &u ) ;
     fclose(fl ) ;
-    if( ( t-u<( 3600 ) )&&( u<t ) )
+if( ( t-u<( 3600 ) )&&( u<t ) )
        {
        bprintf( "Sorry at least an hour must pass between resets\n" ) ;
        return ;
@@ -176,6 +176,17 @@ errk:t=my_lev ;
     }
  
  
+ personin( x )
+    {
+    long a ;
+    a=0 ;
+    while( a<48 )
+       {
+       if( ( /*!strcmp( pname( a ) ) )&&( anachronism*/ ploc( a )==x ) ) return( a ) ;
+       a++ ;
+       }
+    return( -1 ) ;
+    }
 void /*anachronism*/
  dorune(  )
     {
