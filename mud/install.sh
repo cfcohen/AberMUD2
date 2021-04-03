@@ -10,8 +10,8 @@ cat </dev/null >reset_t
 cat </dev/null >reset_n 
 cat </dev/null >user_file
 echo Compiling .h constructor
-gcc -w make.h.c -o hmk
-./hmk >files.h
+cc make.h.c -o hmk
+hmk >files.h
 echo '.h built'
 echo 'Compiling mud.exe'
 make -f makeexe
