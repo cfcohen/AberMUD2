@@ -47,6 +47,7 @@ long codeword,chan;
     if((codeword!= -9900)&&(codeword!= -10021)) strcpy((char *)(block+64),(char *)/*anachronism*/text);
     else
        {
+       	
        block[64]=i[0];
        block[65]=i[1];
        block[66]=i[2];
@@ -136,7 +137,7 @@ int brkword()
 chklist(word,lista,listb)
 char *word;
 char *lista[];
-int listb[];
+long/*int anachronism*/ listb[];
     {
     long  a,b,c,d;
     a=0;
@@ -178,7 +179,7 @@ char *x,*y;
  chkverb()
     {
     extern char wordbuf[],*verbtxt[];
-    extern int verbnum[];
+    extern long/*int anachronism*/ verbnum[];
     return(chklist(wordbuf,verbtxt,verbnum));
     }
  
@@ -201,22 +202,25 @@ char *verbtxt[]={"go","climb","n","e","s","w","u","d",
     ,"stare","exits","crash","sing","grope","spray"
     ,"groan","moan","directory","yawn","wizlist","in","smoke"
     ,"deafen","resurrect","log","tss","rmedit","loc","squeeze","users"
-    ,"honeyboard","inumber","update","become","systat","converse"
-    ,"snoop","shell","raw","purr","cuddle","sulk","roll","credits"
-    ,"brief","debug","jump","wield","map","flee","bug","typo","pn"
-    ,"blind","patch","debugmode","pflags","frobnicate","strike"
-    ,"setin","setout","setmin","setmout","emote","dig","empty"
-    ,0 };
-int verbnum[]={1,1,2,3,4,5,6,7,2,3,4,5,6,7,8,9,9,10,11,12,12,12,13,14
-    ,15,16,16,17,18,19,20,21,22,23,24,25,25,26,27,28,29,30,30,31,32,32,33,34,35,35,35,35,35
+    ,"honeyboard","inumber","update","become","systat","converse",
+    "snoop","shell","raw","purr","cuddle","sulk","roll","credits"
+    ,"brief","debug","jump","wield","map","flee","bug","typo","pn",
+    "blind","patch","debugmode","pflags","frobnicate","strike","setin","setout","setmin","setmout", /*restoration*/
+    "emote","dig","empty",
+     0 };
+ 
+long verbnum[]={1,1,2,3,4,5,6,7,2,3,4,5,6,7,8,9,9,10,11,12,12,12,13,14
+    ,15,16,16,17,18,19,20,21,22,23,24,25,25,26,27,28,29,30,30,31,32,32,33,34,35,35,35,35,35 /*restoration*/
     ,35,35,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66
-    ,100,101,102,103,104,105,106,106,107,108,109,110,111,112,117,114,115,117,117,117
+    ,100,101,102,103,104,105,106,106,107,108,109,110,111,112,117,114,115,117,117,117 /*restoration*/
     ,118,119,120,121,122,123,124,125,126,127,128,129,130,131,132,133
     ,134,135,136,137,138,139,140,141,142,143,144,145,146,147,148,149
-    ,150,151,152,153,154,155,156,157,158,159,160,161,162,163,164,165,166,167,168,169,170
-    ,171,172,34,173,174,175,176,177,178,179,180,181,182,35,183,184,185,186,187,188,189};
+    ,150,151,152,153,154,155,156,157,158,159,160,161,162,163,164,165,166,167,168,169,170 /*restoration*/
+    ,171,172,34,173,174,175,176,177,178,179,180,181,182,35,183,184,185,186 /*restoration*/
+    ,187,188,189};
  
-char *exittxt[]={"north","east","south","west","up","down","n","e","s","w","u","d",0};
+ 
+char *exittxt[]={"north","east","south","west","up","down","n","e","s","w","u","d",0}; /*restoration*/
 long exitnum[]={1,2,3,4,5,6,1,2,3,4,5,6};
  
 void /*anachronism*/
@@ -233,7 +237,6 @@ void /*anachronism*/
     extern long brmode;
     long  brhold;
     extern long mynum;
-    extern long my_lev;
     openworld();
     if((n>1)&&(n<8)){dodirn(n);return;}
     switch(n)
@@ -242,25 +245,20 @@ void /*anachronism*/
           dogocom();
           break;
        case 139:
-          if(in_fight) 
-             {
-             bprintf("Not in a fight!\n");break;
-             }
-          gropecom();
-          break;
+if(in_fight) 
+{
+bprintf("Not in a fight!\n");break;
+}
+          gropecom();break;
        case 8:
-          if(isforce)
-             {
-             bprintf("You can't be forced to do that\n");
-             break;
-             }
+          if(isforce) {bprintf("You can't be forced to do that\n");break;}
           rte(globme);
           openworld();
-          if(in_fight)
-             {
-             bprintf("Not in the middle of a fight!\n");
-             break;
-             }
+if(in_fight)
+{
+bprintf("Not in the middle of a fight!\n");
+break;
+}
           sprintf(xx,"%s has left the game\n",globme);
           bprintf("Ok");
           sendsys(globme,globme,-10000,curch,xx);
@@ -268,33 +266,25 @@ void /*anachronism*/
           sendsys(globme,globme,-10113,0,xx);
           dumpitems();
           setpstr(mynum,-1);
-          pname(mynum)[0]=0;
-          closeworld();
+          	      pname(mynum)[0]=0;
+          	      closeworld();
           curmode=0;curch=0;
           saveme();
           crapup("Goodbye");
           break;
        case 9:
-          getobj();
-          break;
+          getobj();break;
        case 137:
-          crashcom();
-          break;
+          crashcom();break;
        case 10:
-          dropitem();
-          break;
-       case 11:
-          look_cmd();
-          break;
+          dropitem();break;
+       case 11:look_cmd();break;
        case 12:
-          inventory();
-          break;
+          inventory();break;
        case 13:
-          whocom();
-          break;
+          whocom();break;
        case 14:
-          rescom();
-          break;
+          rescom();break;
        case 15:
           lightning();
           break;
@@ -305,394 +295,262 @@ void /*anachronism*/
           playcom();
           break;
        case 18:
-          shoutcom();
-          break;
+          shoutcom();break;
        case 19:
-          saycom();
-          break;
+          saycom();break;
        case 20:
-          tellcom();
-          break;
+          tellcom();break;
        case 21:
-          saveme();
-          break;
+          saveme();break;
        case 22:
-          scorecom();
-          break;
+          scorecom();break;
        case 23:
-          exorcom();
-          break;
+          exorcom();break;
        case 24:
-          givecom();
-          break;
+          givecom();break;
        case 25:
-          stealcom();
-          break;
+          stealcom();break;
        case 26:
-          levcom();
-          break;
+          levcom();break;
        case 27:
-          helpcom();
-          break;
+          helpcom();break;
        case 28:
-          valuecom();
-          break;
+          valuecom();break;
        case 29:
-          stacom();
-          break;
+          stacom();break;
        case 30:
-          examcom();
-          break;
+          examcom();break;
        case 31:
-          delcom();
-          break;
+          delcom();break;
        case 32:
-          passcom();
-          break;
+          passcom();break;
        case 33:
-          sumcom();
-          break;
+          sumcom();break;
        case 34:
-          weapcom();
-          break;
+          weapcom();break;
        case 35:
-          killcom();
-          break;
+          killcom();break;
        case 50:
-          laughcom();
-          break;
+          laughcom();break;
        case 51:
-          crycom();
-          break;
+          crycom();break;
        case 52:
-          burpcom();
-          break;
+          burpcom();break;
        case 53:
-          fartcom();
-          break;
+          fartcom();break;
        case 54:
-          hiccupcom();
-          break;
+          hiccupcom();break;
        case 55:
-          grincom();
-          break;
+          grincom();break;
        case 56:
-          smilecom();
-          break;
+          smilecom();break;
        case 57:
-          winkcom();
-          break;
+          winkcom();break;
        case 58:
-          sniggercom();
-          break;
+          sniggercom();break;
        case 59:
-          posecom();
-          break;
+          posecom();break;
        case 60:
-          setcom();
-          break;
+          setcom();break;
        case 61:
-          praycom();
-          break;
+          praycom();break;
        case 62:
-          stormcom();
-          break;
+          stormcom();break;
        case 63:
-          raincom();
-          break;
+          raincom();break;
        case 64:
-          suncom();
-          break;
+          suncom();break;
        case 65:
-          snowcom();
-          break;
+          snowcom();break;
        case 66:
           goloccom();
           break;
        case 100:
-          wearcom();
-          break;
+          wearcom();break;
        case 101:
-          removecom();
-          break;
+          removecom();break;
        case 102:
-          putcom();
-          break;
+          putcom();break;
        case 103:
-          wavecom();
-          break;
+          wavecom();break;
        case 104:
-          blizzardcom();
-          break;
+          blizzardcom();break;
        case 105:
-          opencom();
-          break;
+          opencom();break;
        case 106:
-          closecom();
-          break;
+          closecom();break;
        case 107:
-          lockcom();
-          break;
+          lockcom();break;
        case 108:
-          unlockcom();
-          break;
+          unlockcom();break;
        case 109:
-          forcecom();
-          break;
+          forcecom();break;
        case 110:
-          lightcom();
-          break;
+          lightcom();break;
        case 111:
-          extinguishcom();
-          break;
+          extinguishcom();break;
        case 118:
-          cripplecom();
-          break;
+          cripplecom();break;
        case 119:
-          curecom();
-          break;
+          curecom();break;
        case 120:
-          dumbcom();
-          break;
+          dumbcom();break;
        case 121:
-          changecom();
-          break;
+          changecom();break;
        case 122:
-          missilecom();
-          break;
+          missilecom();break;
        case 123:
-          shockcom();
-          break;
+          shockcom();break;
        case 124:
-          fireballcom();
-          break;
+          fireballcom();break;
        case 126:
-          blowcom();
-          break;
+          blowcom();break;
        case 127:
-          sighcom();
-          break;
+          sighcom();break;
        case 128:
-          kisscom();
-          break;
+          kisscom();break;
        case 129:
-          hugcom();
-          break;
+          hugcom();break;
        case 130:
-          slapcom();
-          break;
+          slapcom();break;
        case 131:
-          ticklecom();
-          break;
+          ticklecom();break;
        case 132:
-          screamcom();
-          break;
+          screamcom();break;
        case 133:
-          bouncecom();
-          break;
+          bouncecom();break;
        case 134:
-          wizcom();
-          break;
+          wizcom();break;
        case 135:
-          starecom();
-          break;
+          starecom();break;
        case 136:
-          exits();
-          break;
+          exits();break;
        case 138:
-          singcom();
-          break;
+          singcom();break;
        case 140:
-          spraycom();
-          break;
+          spraycom();break;
        case 141:
-          groancom();
-          break;
+          groancom();break;
        case 142:
-          moancom();
-          break;
+          moancom();break;
        case 143:
-          dircom();
-          break;
+          dircom();break;
        case 144:
-          yawncom();
-          break;
+          yawncom();break;
        case 117:;
        case 113:
-          pushcom();
-          break;
+          pushcom();break;
        case 145:
-          wizlist();
-          break;
+          wizlist();break;
        case 146:
-          incom();
-          break;
+          incom();break;
        case 147:
-          lightcom();
-          break;
+          lightcom();break;
        case 114:
-          inviscom();
-          break;
+          inviscom();break;
        case 115:
-          viscom();
-          break;
+          viscom();break;
        case 148:
-          deafcom();
-          break;
+          deafcom();break;
        case 149:
-          ressurcom();
-          break;
+          ressurcom();break;
        case 150:
-          logcom();
-          break;
+          logcom();break;
        case 151:
-          tsscom();
-          break;
+          tsscom();break;
        case 152:
-          rmeditcom();
-          break;
+          rmeditcom();break;
        case 154:
-          squeezecom();
-          break;
+          squeezecom();break;
        case 153:
-          loccom();
-          break;
+          loccom();break;
        case 155:
-          usercom();
-          break;
+          usercom();break;
        case 156:
-          u_system();
-          break;
+          u_system();break;
        case 157:
-          inumcom();
-          break;
+          inumcom();break;
        case 158:
-          updcom();
-          break;
+          updcom();break;
        case 159:
-          becom();
-          break;
+          becom();break;
        case 160:
-          systat();
-          break;
+          systat();break;
        case 161:
-          convcom();
-          break;
+          convcom();break;
        case 162:
-          snoopcom();
-          break;
+          snoopcom();break;
        case 163:
-          shellcom();
-          break;
+          shellcom();break;
        case 164:
-          rawcom();
-          break;
+          rawcom();break;
        case 165:
-          purrcom();
-          break;
+          purrcom();break;
        case 166:
-          cuddlecom();
-          break;
+          cuddlecom();break;
        case 167:
-          sulkcom();
-          break;
+          sulkcom();break;
        case 168:
-          rollcom();
-          break;
+          rollcom();break;
        case 169:
-          bprintf("\001f%s\001",CREDITS);
-          break;
+          bprintf("\001f%s\001",CREDITS);break;
        case 170:
           brmode=!brmode;
           break;
        case 171:
-          debugcom();
-          break;
+          debugcom();break;
        case 172:
-          jumpcom();
-          break;
+          jumpcom();break;
        case 112:
-          wherecom();
-          break;
+          wherecom();break;
        case 173:
-          bprintf("Your adventurers automatic monster detecting radar, and long range\n");
+          bprintf("Your adventurers automatic monster detecting radar, and long range\n"); /*restoration*/
           bprintf("mapping kit, is, sadly, out of order.\n");break;
-       case 174:
-          if(!in_fight)
-             {
-             dogocom();
-             break;
-             }
-          else
-             {
-             char ar[120];
-             if(iscarrby(32,mynum)) 
-                {
-                bprintf("The sword won't let you!!!!\n");
-                break;
-                }
-             sprintf(ar,"\001c%s\001 drops everything in a frantic attempt to escape\n",globme);
-             sendsys(globme,globme,-10000,curch,ar);
-             sendsys(globme,globme,-20000,curch,"");
-             my_sco-=my_sco/33; /* loose 3% */
-             calibme();
-             in_fight=0;
-             on_flee_event();
-             dogocom();
-             break;
-             }
-       case 175:
-          bugcom();
-          break;
-       case 176:
-          typocom();
-          break;
-       case 177:
-          pncom();
-          break;
-       case 178:
-          blindcom();
-          break;
-       case 179:
-          edit_world();
-          break;
-       case 180:
-          if(ptstflg(mynum,4)) debug_mode=1-debug_mode;
-          break;
-       case 181:
-          setpflags();
-          break;
-       case 182:
-          frobnicate();
-          break;
-       case 183:
-          setincom();
-          break;
-       case 184:
-          setoutcom();
-          break;
-       case 185:
-          setmincom();
-          break;
-       case 186:
-          setmoutcom();
-          break;
-       case 187:
-          emotecom();
-          break;
-       case 188:
-          digcom();
-          break;
-       case 189:
-          emptycom();
-          break;
+case 174:if(!in_fight)
+{
+dogocom();break;
+}
+else
+{
+char ar[120];
+if(iscarrby(32,mynum)) 
+{
+	bprintf("The sword won't let you!!!!\n");
+	break;
+}
+sprintf(ar,"\001c%s\001 drops everything in a frantic attempt to escape\n",globme);
+sendsys(globme,globme,-10000,curch,ar);
+sendsys(globme,globme,-20000,curch,"");
+my_sco-=my_sco/33; /* loose 3% */
+calibme();
+in_fight=0;
+on_flee_event();
+dogocom();} /*anachronism*/break;
+case 175:bugcom();break;
+case 176:typocom();break;
+case 177:pncom();break;
+case 178:blindcom();break;
+case 179:edit_world();break;
+case 180:if(ptstflg(mynum,4)) debug_mode=1-debug_mode;
+break;
+case 181:setpflags();break;
+case 182:frobnicate();break;
+case 183:setincom();break;
+case 184:setoutcom();break;
+case 185:setmincom();break;
+case 186:setmoutcom();break;
+case 187:emotecom();break;
+case 188:digcom();break;
+case 189:emptycom();break;
+/*} anachronism*/
        default:
           if(my_lev>9999)bprintf("Sorry not written yet[COMREF %d]\n",n);
           else bprintf("I don't know that verb.\n");
           break;
-       }
+          }
     }
  
+
 char in_ms[81]="has arrived.";
 char out_ms[81]="";
 char mout_ms[81]="vanishes in a puff of smoke.";
@@ -710,7 +568,7 @@ dogocom(n)
        bprintf("GO where ?\n");
        return(-1);
        }
-    if(!strcmp(wordbuf,"rope")) strcpy(wordbuf,"up");
+if(!strcmp(wordbuf,"rope")) strcpy(wordbuf,"up");
     a=chklist(wordbuf,exittxt,exitnum);
     if(a== -1)
        {
@@ -732,19 +590,19 @@ void /*anachronism*/
     char block[256],x[32];
     long  newch,fl,i;
     extern long in_fight;
-    if(in_fight>0)
-       {
-       bprintf("You can't just stroll out of a fight!\n");
-       bprintf("If you wish to leave a fight, you must FLEE in a direction\n");
-       return;
-       }
-    if((iscarrby(32,mynum))&&(ploc(25)==curch)&&(!!strlen(pname(25))))
-       {
-       bprintf("\001cThe Golem\001 bars the doorway!\n");
-       return;
-       }
+if(in_fight>0)
+{
+bprintf("You can't just stroll out of a fight!\n");
+bprintf("If you wish to leave a fight, you must FLEE in a direction\n");
+return;
+}
+if((iscarrby(32,mynum))&&(ploc(25)==curch)&&(!!strlen(pname(25))) )
+{
+bprintf("\001cThe Golem\001 bars the doorway!\n");
+return;
+}
     n-=2;
-    if(chkcrip()) return;
+    	if(chkcrip()) return;
     newch=ex_dat[n];
     if((newch>999)&&(newch<2000))
        {
@@ -753,47 +611,52 @@ void /*anachronism*/
        droff=drnum^1;/* other door side */
        if(state(drnum)!=0)
           {
-	  if (strcmp(oname(drnum),"door")||isdark()||strlen(olongt(drnum,state(drnum)))==0)
-              {
-              bprintf("You can't go that way\n");
-              /* Invis doors */
-              }
-              else
-              bprintf("The door is not open\n");
+extern long objects;
+if (strcmp(oname(drnum),"door")||isdark()||strlen(olongt(drnum,state(drnum)))==0) /*restoration*/
+{
+bprintf("You can't go that way\n");
+/* Invis doors */
+}
+else
+          bprintf("The door is not open\n");
           return;
           }
        newch=oloc(droff);
        }
     if(newch==-139)
-       {
-       if((!iswornby(113,mynum))&&(!(iswornby(114,mynum)))&&(!iswornby(89,mynum)))
-          {
-          bprintf("The intense heat drives you back\n");
-          return;
-          }
-       else
-          bprintf("The shield protects you from the worst of the lava stream's heat\n");
-       }
+    {
+    	if((!iswornby(113,mynum))&&(!(iswornby(114,mynum)))&&(!iswornby(89,mynum)))
+   	{
+    		bprintf("The intense heat drives you back\n");
+    		return;
+    	}
+    	else
+		bprintf("The shield protects you from the worst of the lava stream's heat\n");
+     }
     if(n==2)
-       {
-         if(((i=fpbns("figure"))!=mynum)&&(i!=-1)&&(ploc(i)==curch)&&!iswornby(101,mynum)&&!iswornby(102,mynum)&&!iswornby(103,mynum))
-    	    {
-            bprintf("\001pThe Figure\001 holds you back\n");
-            bprintf("\001pThe Figure\001 says 'Only true sorcerors may pass'\n");
-            return;
-            }
-       }
+    {
+    	 i=fpbns("figure");
+	 if((i!=mynum)&&(i!=-1)&&(ploc(i)==curch)&&!iswornby(101,mynum)&&!iswornby(102,mynum)&&!iswornby(103,mynum)) /*restoration*/
+    	 {
+    	 	bprintf("\001pThe Figure\001 holds you back\n");
+		bprintf("\001pThe Figure\001 says 'Only true sorcerors may pass'\n");
+		return;
+	}
+}
     if(newch>=0)bprintf("You can't go that way\n");
     else
        {
-       sprintf(block,"%s%s%s%s%s%s%s%s%s%s","\001s",pname(mynum),"\001",globme," has gone ",exittxt[n]," ",out_ms,".","\n\001");
+       sprintf(block,"%s%s%s%s%s%s%s%s%s%s","\001s",pname(mynum),"\001",globme," has gone ",exittxt[n]," ",out_ms,".","\n\001"); /*restoration*/
        sendsys(globme,globme,-10000,curch,block);
        curch=newch;
-       sprintf(block,"%s%s%s%s %s%s","\001s",globme,"\001",globme,in_ms,"\n\001");
+  sprintf(block,"%s%s%s%s %s%s","\001s",globme,"\001",globme,in_ms,"\n\001");
        sendsys(globme,globme,-10000,newch,block);
        trapch(curch);
        }
     }
+ 
+ 
+ 
  
 long tdes=0;
 long vdes=0;
@@ -824,16 +687,16 @@ void /*anachronism*/
     lowercase(nameme);
     isme=split(blok,nam1,nam2,text,nameme);
     i=(long *)text;
-    if((blok[1]== -20000)&&(fpbns(nam1)==fighting))
-       {
-       in_fight=0;
-       fighting= -1;
-       }
-    if(blok[1]<-10099)
-       {
-       new1rcv(isme,blok[0],nam1,nam2,blok[1],text);
-       return;
-       }
+if((blok[1]== -20000)&&(fpbns(nam1)==fighting))
+{
+in_fight=0;
+fighting= -1;
+}
+    	if(blok[1]<-10099)
+    	{
+       		new1rcv(isme,blok[0],nam1,nam2,blok[1],text);
+       		return;
+       	}
     switch(blok[1])
        {
        case -9900:
@@ -842,17 +705,14 @@ void /*anachronism*/
           bprintf("Something Very Evil Has Just Happened...\n");
           loseme();
           crapup("Bye Bye Cruel World....");
-       case -599:
-          if(isme)
-             {
-             sscanf(text,"%ld.%ld.%ld."/*anachronism*/,&my_lev,&my_sco,&my_str);
-             calibme();
-             }
-          break;
+       case -599:if(isme)
+        {
+       	sscanf(text,"%ld.%ld.%ld."/*anachronism*/,&my_lev,&my_sco,&my_str);
+       	calibme();
+       	}
+       	break;
        case -750:
-          if(isme)
-             {
-             if(fpbns(nam2)!= -1) loseme();
+          if(isme){if(fpbns(nam2)!= -1) loseme();
              closeworld();
              printf("***HALT\n");
              exit(0);
@@ -867,16 +727,14 @@ void /*anachronism*/
              }
           break;
        case -10000:
-          if((isme!=1)&&(blok[0]==curch))
-             {
+          if((isme!=1)&&(blok[0]==curch)) {
              bprintf("%s",text);
              }
           break;
        case -10030:
           wthrrcv(blok[0]);break;
        case -10021:
-          if(curch==blok[0])
-             {
+          if(curch==blok[0]){
              if(isme==1)
                 {
                 rdes=1;
@@ -891,11 +749,10 @@ void /*anachronism*/
              ades=blok[0];
              if(my_lev<10)
                 {
-                bprintf("You drop everything you have as you are summoned by \001p%s\001\n",nam2);
+                bprintf("You drop everything you have as you are summoned by \001p%s\001\n",nam2); /*restoration*/
                 }
              else
-                {
-                bprintf("\001p%s\001 tried to summon you\n",nam2);
+                {bprintf("\001p%s\001 tried to summon you\n",nam2);
                 return;
                 }
              tdes=1;
@@ -904,63 +761,51 @@ void /*anachronism*/
        case -10001:
           if(isme==1)
              {
-             if (my_lev>10)
-                bprintf("\001p%s\001 cast a lightning bolt at you\n", nam2);
+             if (my_lev>10) bprintf("\001p%s\001 cast a lightning bolt at you\n", nam2); /*restoration*/
              else
                 /* You are in the .... */
                 {
-                bprintf("A massive lightning bolt arcs down out of the sky to strike");
-                sprintf(zb,"[ \001p%s\001 has just been zapped by \001p%s\001 and terminated ]\n",
-                    globme, nam2);
-                sendsys(globme,globme,-10113,curch,zb);
+                bprintf("A massive lightning bolt arcs down out of the sky to strike"); /*restoration*/
                 bprintf(" you between\nthe eyes\n");
                 zapped=1;
+                loseme();
                 delpers(globme);
                 sprintf(zb,"\001s%s\001%s has just died.\n\001",globme,globme);
                 sendsys(globme,globme,-10000,curch,zb);
-                loseme();
                 bprintf("You have been utterly destroyed by %s\n",nam2);
+                sprintf(zb, "[ \001p%s\001 has just been zapped by \001p%s\001 and terminated ]\n", /*restoration*/
+                globme,nam2);
+                sendsys(globme,globme,-10113,curch,zb);
 
                 crapup("Bye Bye.... Slain By Lightning");
                 }
              }
-          else if (blok[0]==curch)
-             bprintf("\001cA massive lightning bolt strikes \001\001D%s\001\001c\n\001", nam1);
+          else
+ 	     if (blok[0]==curch) bprintf("\001cA massive lightning bolt strikes \001\001D%s\001\001c\n\001", nam1); /*restoration*/
           break;
        case -10002:
           if(isme!=1)
              {
-             if (blok[0]==curch||my_lev>9)
-                 bprintf("\001P%s\001\001d shouts '%s'\n\001", nam2, text);
+             if (blok[0]==curch||my_lev>9) bprintf("\001P%s\001\001d shouts '%s'\n\001", nam2, text);/*restoration*/
              else
                 bprintf("\001dA voice shouts '%s'\n\001",text);
              }
           break;
        case -10003:
-          if(isme!=1)
-             {
-             if (blok[0]==curch)
-                bprintf("\001P%s\001\001d says '%s'\n\001", nam2, text);
+          if(isme!=1){
+             if (blok[0]==curch) bprintf("\001P%s\001\001d says '%s'\n\001", nam2, text); /*restoration*/
              }
           break;
        case -10004:
-          if(isme)
-             bprintf("\001P%s\001\001d tells you '%s'\n\001",nam2,text);
+          if(isme)bprintf("\001P%s\001\001d tells you '%s'\n\001",nam2,text);
           break;
        case -10010:
-          if(isme==1)
-             {
-             loseme();
-             crapup("You have been kicked off");
-             }
+          if(isme==1){loseme(); crapup("You have been kicked off");}
           else
              bprintf("%s has been kicked off\n",nam1);
           break;
        case -10011:
-          if(isme==1)
-             {
-             bprintf("%s",text);
-             }
+          if(isme==1){bprintf("%s",text);}
           break;
           }
     }
@@ -979,7 +824,6 @@ eorte()
     extern long my_str;
     extern long i_setup;
     extern long interrupt;
-    extern long fighting,in_fight;
     long ctm;
     time(&ctm);
     if(ctm-last_io_interrupt>2) interrupt=1;
@@ -994,30 +838,29 @@ eorte()
     if(tdes) dosumm(ades);
     if(in_fight)
     {
-       if(ploc(fighting)!=curch)
-          {
-          fighting= -1;
-          in_fight=0;
-          }
-       if(!strlen(pname(fighting)))
-          {
-          fighting= -1;
-          in_fight=0;
-          }
-       if(in_fight)
-          {
-          if(interrupt)
-             {
-             in_fight=0;
-             hitplayer(fighting,wpnheld);
-             }
-          }
-       }
-    if((iswornby(18,mynum))||(randperc()<10))
-       {
-       my_str++;
-       if(i_setup) calibme();
-       }
+    	if(ploc(fighting)!=curch)
+    	{
+    		fighting= -1;
+    		in_fight=0;
+    	}
+    	if(!strlen(pname(fighting)))
+    	{
+    		fighting= -1;
+    		in_fight=0;
+    	}
+    	if(in_fight) {
+
+		if(interrupt) 	{
+				    	in_fight=0;
+				    	hitplayer(fighting,wpnheld);
+				}
+		}
+	}
+	if((iswornby(18,mynum))||(randperc()<10))
+	{
+		my_str++;
+		if(i_setup) calibme();
+	}
     forchk();
     if(me_drunk>0)
        {
@@ -1079,7 +922,7 @@ void /*anachronism*/
     extern long curch;
     if(my_lev<10)
        {
-       bprintf("Your spell fails.....\n");
+          bprintf("Your spell fails.....\n");
        return;
        }
     if(brkword()== -1)
@@ -1098,28 +941,25 @@ void /*anachronism*/
     if(vic>15)woundmn(vic,10000); /* DIE */
     broad("\001dYou hear an ominous clap of thunder in the distance\n\001");
     }
-
 void /*anachronism*/
  eatcom()
     {
-    long b;
-    extern char wordbuf[];
-    extern long curch;
-    extern long mynum;
-    extern long curch;
-    extern long my_str;
-    extern long my_lev;
-    extern long my_sco;
-    if(brkword()== -1)
+long b;
+extern char wordbuf[];
+extern long curch;
+extern long mynum;
+extern long curch;
+extern long my_str;
+      if(brkword()== -1)
        {
        bprintf("What\n");
        return;
        }
 
-    if((curch== -609)&&(!strcmp(wordbuf,"water"))) strcpy(wordbuf,"spring");
-    if(!strcmp(wordbuf,"from")) brkword();
-    b=fobna(wordbuf);
-    if(b== -1)
+if((curch== -609)&&(!strcmp(wordbuf,"water"))) strcpy(wordbuf,"spring");
+if(!strcmp(wordbuf,"from")) brkword();
+b=fobna(wordbuf);
+if(b== -1)
        {
        bprintf("There isn't one of those here\n");
        return;
@@ -1127,41 +967,37 @@ void /*anachronism*/
 
     switch(b)
        {
-       case 11:
-          bprintf("You feel funny, and then pass out\n");
-          bprintf("You wake up elsewhere....\n");
-          teletrap(-1076);
-          break;
-       case 75:
-          bprintf("very refreshing\n");
-          break;
-       case 175:
-          if(my_lev<3)
-             {
-             my_sco+=40;
-             calibme();
-             bprintf("You feel a wave of energy sweeping through you.\n");
-             break;
-             }
-          else
-             {
-             bprintf("Faintly magical by the taste.\n");
-             if(my_str<40) my_str+=2;
-             calibme();
-             }
-          break;
+case 11:bprintf("You feel funny, and then pass out\n");
+bprintf("You wake up elsewhere....\n");
+teletrap(-1076);
+break;
+case 75:bprintf("very refreshing\n");break;
+case 175:if(my_lev<3)
+	{
+		my_sco+=40;
+		calibme();
+		bprintf("You feel a wave of energy sweeping through you.\n");
+		break;
+	}
+	else
+	{
+		bprintf("Faintly magical by the taste.\n");
+		if(my_str<40) my_str+=2;
+		calibme();
+	}
+	break;
        default:
-          if(otstbit(b,6))
-             {
-             destroy(b);
-             bprintf("Ok....\n");
-             my_str+=12;
-             calibme();
-             }
-          else
-             bprintf("Thats sure not the latest in health food....\n");
+if(otstbit(b,6))
+{
+destroy(b);
+bprintf("Ok....\n");
+my_str+=12;
+calibme();
+}
+else
+          bprintf("Thats sure not the latest in health food....\n");
           break;
-       }
+          }
     }
  
 void /*anachronism*/
@@ -1234,7 +1070,6 @@ void /*anachronism*/
        return;
        }
     }
-
  getreinput(blob)
     char* blob; /*anachronism*/
     {
@@ -1244,17 +1079,15 @@ void /*anachronism*/
     while(strbuf[stp]==' ') stp++;
     while(strbuf[stp]) addchar(blob,strbuf[stp++]);
     }
-
 void /*anachronism*/
  shoutcom()
     {
     extern long curch,my_lev;
     extern char globme[];
     auto char blob[200];
-    if(chkdumb()) return;
+    	if(chkdumb()) return;
     getreinput(blob);
-    if(my_lev>9)
-       sendsys(globme,globme,-10104,curch,blob);
+    	if(my_lev>9) sendsys(globme,globme,-10104,curch,blob);
     else
        sendsys(globme,globme,-10002,curch,blob);
     bprintf("Ok\n");
@@ -1271,7 +1104,6 @@ void /*anachronism*/
     sendsys(globme,globme,-10003,curch,blob);
     bprintf("You say '%s'\n",blob);
     }
-
 void /*anachronism*/
  tellcom()
     {
@@ -1293,25 +1125,18 @@ void /*anachronism*/
        }
     getreinput(blob);
     sendsys(pname(b),globme,-10004,curch,blob);
-    }
  
-void /*anachronism*/
+    }
+ void /*anachronism*/
  scorecom()
     {
     extern long my_str,my_lev,my_sco;
     extern long my_sex;
     extern char globme[];
-    if(my_lev==1)
-       {
-       bprintf("Your strength is %d\n",my_str);
-       return;
-       }
-    else
-       bprintf("Your strength is %d(from %d),Your score is %d\nThis ranks you as %s ",
-          my_str,50+8*my_lev,my_sco,globme);
+    if(my_lev==1) { bprintf("Your strength is %d\n",my_str); return; } /*restoration*/
+    else bprintf("Your strength is %d(from %d),Your score is %d\nThis ranks you as %s ", my_str,50+8*my_lev,my_sco,globme); /*restoration*/
     disle3(my_lev,my_sex);
     }
-
 void /*anachronism*/
  exorcom()
     {
@@ -1346,7 +1171,6 @@ void /*anachronism*/
     sendsys(pname(x),globme,-10010,curch,"");
     pname(x)[0]=0;
     }
- 
 void /*anachronism*/
  givecom()
     {
@@ -1383,6 +1207,7 @@ void /*anachronism*/
     if(c== -1)
        {
        bprintf("I don't know who %s is\n",wordbuf);
+ 
        return;
        }
     dogive(a,c);
@@ -1430,17 +1255,16 @@ void /*anachronism*/
        bprintf("They can't carry that\n");
        return;
        }
-    if((my_lev<10)&&(ob==32))
-       {
-       bprintf("It doesn't wish to be given away.....\n");
-       return;
-       }
+if((my_lev<10)&&(ob==32))
+{
+bprintf("It doesn't wish to be given away.....\n");
+return;
+}
     setoloc(ob,pl,1);
     sprintf(z,"\001p%s\001 gives you the %s\n",globme,oname(ob));
     sendsys(pname(pl),globme,-10011,curch,z);
     return;
     }
-
 void /*anachronism*/
  stealcom()
     {
@@ -1525,7 +1349,6 @@ void /*anachronism*/
        return;
        }
     }
- 
  dosumm(loc)
     {
     char ms[128];
@@ -1539,7 +1362,6 @@ void /*anachronism*/
     sendsys(globme,globme,-10000,curch,ms);
     trapch(curch);
     }
- 
 void /*anachronism*/
  tsscom()
     {
@@ -1557,7 +1379,6 @@ void /*anachronism*/
     else bprintf("Not permitted on this ID\n");
     keysetup();
     }
- 
 void /*anachronism*/
  rmeditcom()
     {
@@ -1592,7 +1413,6 @@ void /*anachronism*/
     sendsys(globme,globme,-10113,0,ms);
     rte(globme/*anachronism*/);
     }
- 
 void /*anachronism*/
  u_system()
     {
@@ -1607,7 +1427,7 @@ void /*anachronism*/
        }
     cms= -2;
     update(globme);
-    sprintf(x,"%s%s%s%s%s","\001s",globme,"\001",globme," has dropped into BB\n\001");
+    sprintf(x,"%s%s%s%s%s","\001s",globme,"\001",globme," has dropped into BB\n\001"); /*restoration*/
     sendsys(globme,globme,-10113,0,x);
     closeworld();
     system("/cs_d/aberstudent/yr2/iy7/bt");
@@ -1620,20 +1440,17 @@ void /*anachronism*/
        }
     rte(globme/*anachronism*/);
     openworld();
-    sprintf(x,"%s%s%s%s%s","\001s",globme,"\001",globme," has returned to AberMud\n\001");
+    sprintf(x,"%s%s%s%s%s","\001s",globme,"\001",globme," has returned to AberMud\n\001"); /*restoration*/
     sendsys(globme,globme,-10113,0,x);
     }
- 
 void /*anachronism*/
  inumcom()
     {
     extern long my_lev;
     extern char wordbuf[];
     if(my_lev<10000)
-       {
-       bprintf("Huh ?\n");
-       return;
-       }
+       {bprintf("Huh ?\n");
+       return;}
     if(brkword()== -1)
        {
        bprintf("What...\n");
@@ -1641,7 +1458,6 @@ void /*anachronism*/
        }
     bprintf("Item Number is %d\n",fobn(wordbuf));
     }
- 
 void /*anachronism*/
  updcom()
     {
@@ -1668,7 +1484,7 @@ void /*anachronism*/
     {
     extern char globme[];
     extern long my_lev;
-    char x[130/*128 anarchronism*/];
+    char x[130/*128 anachronism*/];
     char x2[128];
     if(my_lev<10)
        {
@@ -1690,7 +1506,6 @@ void /*anachronism*/
     execl(EXE2,"   --}----- ABERMUD ------   ",x,NULL/*0 anachronism*/);	/* GOTOSS eek! */
     bprintf("Eek! someone's just run off with mud!!!!\n");
     }
- 
 void /*anachronism*/
  systat()
     {
@@ -1701,14 +1516,12 @@ void /*anachronism*/
        return;
        }
     }
- 
  convcom()
     {
     extern long convflg;
     convflg=1;
     bprintf("Type '**' on a line of its own to exit converse mode\n");
     }
- 
 void /*anachronism*/
  shellcom()
     {
@@ -1721,7 +1534,6 @@ void /*anachronism*/
     convflg=2;
     bprintf("Type ** on its own on a new line to exit shell\n");
     }
- 
 void /*anachronism*/
  rawcom()
     {
@@ -1734,16 +1546,16 @@ void /*anachronism*/
        }
     getreinput(x);
     if((my_lev==10033)&&(x[0]=='!'))
-       {
-       broad(x+1);
-       return;
-       }
-    else
-       {
-       sprintf(y,"%s%s%s","** SYSTEM : ",x,"\n\007\007");
-       broad(y);
-       }
+    {
+          broad(x+1);
+          return;
     }
+    else
+    {
+    sprintf(y,"%s%s%s","** SYSTEM : ",x,"\n\007\007");
+    broad(y);
+    }
+}
  
 void /*anachronism*/
  rollcom()
@@ -1753,17 +1565,15 @@ void /*anachronism*/
     if(b== -1) return;
     switch(a)
        {
-       case 122:;
-       case 123:
-          gamecom("push pillar");
-          break;
+       	case 122:;
+       	case 123:gamecom("push pillar");break;
        default:
           bprintf("You can't roll that\n");
-       }
+          }
     }
- 
+    
 long brmode=0;
- 
+
 void /*anachronism*/
  debugcom()
     {
@@ -1801,7 +1611,6 @@ look_cmd()
 	long brhold;
 	extern long brmode;
 	extern char wordbuf[];
-        extern long curch;
 	if(brkword()==-1)
 	{
           brhold=brmode;
@@ -1844,12 +1653,12 @@ look_cmd()
 	aobjsat(a,3);
 }
 	
+
 void /*anachronism*/
 set_ms(x)
 char *x;
 {
 	extern long my_lev;
-	extern char globme[];
 	if((my_lev<10)&&(strcmp(globme,"Lorry")))
 	{
 		bprintf("No way !\n");
@@ -1888,10 +1697,10 @@ setherecom()
 	set_ms(here_ms);
 }
 
+
 void /*anachronism*/
 digcom()
 {
-        extern long curch;
 	if((oloc(186)==curch)&&(isdest(186)))
 	{
 		bprintf("You uncover a stone slab!\n");
@@ -1917,7 +1726,6 @@ emptycom()
 {
 	long a,b;
 	extern long numobs;
-        extern long mynum;
 	char x[81];
 	b=ohereandget(&a);
 	if(b==-1) return;

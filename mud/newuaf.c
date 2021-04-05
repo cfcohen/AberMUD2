@@ -1,5 +1,4 @@
 #include "anachronisms.h"
-#include <errno.h>
 #include <stdio.h>
 #include "files.h"
 
@@ -148,7 +147,7 @@ initme()
 	PERSONA x;
 	char s[32];
 	extern char globme[];
-	errno=0;
+	extern int errno;
 	if(findpers(globme,&x)!=-1)
 	{
 		decpers(&x,s,&my_str,&my_sco,&my_lev,&my_sex);
@@ -189,7 +188,7 @@ saveme()
 	extern char globme[];
 	extern long zapped;
 	PERSONA x;
-	extern int mynum;
+	extern long/*int anachronism*/ mynum;
 	strcpy(x.p_name,globme);
 	x.p_strength=my_str;
 	x.p_level=my_lev;

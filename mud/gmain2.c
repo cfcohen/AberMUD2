@@ -27,6 +27,7 @@ void main(argc,argv)     /* The initial routine */
 int argc;
 char *argv[];
     {
+    extern int/*long anachronism*/ ttyt;
     long r;
     FILE *a;
     char user[80],b[40],space[400];
@@ -136,7 +137,7 @@ char *argv[];
        {
 	       cls();
 	       listfl(MOTD); 			/* list the message of the day */
-	       fgets(space,399,stdin);
+	       gets(space);
 	       printf("\n\n");
        }
 	cuserid(space);
@@ -188,7 +189,7 @@ void login(user)     /* The whole login system is called from this */
     if (logscan(dat,a)== -1)       /* If he/she doesnt exist */
        {
        printf("\nDid I get the name right %s ?",user);
-       fgets(a,79,stdin);lowercase(a);c=a[0];
+       gets(a);lowercase(a);c=a[0];
        if (c=='n')  {printf("\n");goto rena;}  /* Check name */
        }
     logpass(user);        /* Password checking */
@@ -302,7 +303,7 @@ void getunm(name)
  char *name;
     {
     printf("\nUser Name:");
-    fgets(name,79,stdin);
+    fgets(name,79,stdin)/*gets(name) anachronism*/;
     }
  
 void showuser()
@@ -377,7 +378,7 @@ void ed_fld(name,string)
     {
     char bk[128];
     bafld:printf("%s(Currently %s ):",name,string);
-    fgets(bk,128,stdin);
+    gets(bk);
     if(bk[0]=='.') strcpy(bk,"");
     if(strchr(bk,'.')){printf("\nInvalid Data Field\n");goto bafld;}
     if (strlen(bk)) strcpy(string,bk);
@@ -508,10 +509,9 @@ void listfl(name)
 void crapup(ptr)
  char *ptr;
     {
-    char a[64];
     printf("\n%s\n\nHit Return to Continue...\n",ptr);
-    fgets(a,63,stdin);
-    exit(1);
+    char a[4]; fgets(a,4,stdin)/*gets(ptr) anachronism*/;
+    exit(1/*anachronism*/);
     }
  
 /*

@@ -49,6 +49,10 @@ int special(char* string, char* name);
 int cleanup(long *inpbk);
 int revise(long cutoff);
 int send2(long* block);
+extern long curch;
+extern long mynum;
+extern long iamon;
+extern char globme[];
 
 // parse.c
 int Match(char* x, char* y);
@@ -97,6 +101,7 @@ int setincom(); // returns ?
 int setoutcom(); // returns ?
 int setmincom(); // returns ?
 int setmoutcom(); // returns ?
+extern long verbnum[];
 
 // frob.c
 void frobnicate();
@@ -229,6 +234,8 @@ void saveme();
 void initme();
 int resword(char* name); // also in gmainstubs.c
 void delpers(char* name);
+extern long my_sco;
+extern long my_lev;
 
 // new1.c
 int iam(char* x);
@@ -311,6 +318,8 @@ void hitplayer(long victim, long wpn);
 void bloodrcv(long *array, int isme);
 void killcom();
 void weapcom();
+extern long in_fight;
+extern long fighting;
 
 // magic.c
 int randperc();
@@ -338,6 +347,7 @@ void wherecom(); // really returns void
 void statplyr();
 void wizlist();
 void edit_world();
+long getnarg(long bt, long to);
 
 // ndebug.c
 int debug2(); // really returns void
@@ -398,5 +408,9 @@ int flock(int fd, int operation);
 #define getpw(uid, ary) ary[0]=0;if (getlogin_r(ary, 127) != 0) { \
   fprintf(stderr, "getlogin_r() failed %s.", strerror(errno)); \
   ary[0] = 0; } strcat(ary, ":");
+
+// Unsafe gets() was used in several places.  Where possible,
+// automatically convert to a safer implementation using fgets().
+#define gets(x) fgets(x, sizeof(x), stdin)
 
 #endif

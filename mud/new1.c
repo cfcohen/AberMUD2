@@ -267,7 +267,6 @@ void /*anachronism*/
     extern long my_sco;
     char ar[128];
     extern char wordbuf[];
-    extern long curch;
     long c;
     b=ohereandget(&a);
     if(b== -1) return;
@@ -388,7 +387,7 @@ void /*anachronism*/
     }
     setoloc(a,c,3);
     bprintf("Ok.\n");
-    sprintf(ar,"\001D%s\001\001c puts the %s in the %s.\n\001",globme,oname(a),oname(c));
+    sprintf(ar,"\001D%s\001\001c puts the %s in the %s.\n\001",globme,oname(a),oname(c)); /*restoration*/
     sendsys(globme,globme,-10000,curch,ar);
     if(otstbit(a,12)) setstate(a,0);
     if(curch==-1081) 
@@ -459,7 +458,6 @@ void /*anachronism*/
     {
     extern long curch;
     extern char wordbuf[];
-    extern long mynum;
     long fil;
     long x;
     if(brkword()== -1)
@@ -476,14 +474,13 @@ void /*anachronism*/
     switch(x)
        {
        case 126:
-          bprintf("The tripwire moves and a huge stone crashes down from above!\n");
+          bprintf("The tripwire moves and a huge stone crashes down from above!\n"); /*restoration*/
           broad("\001dYou hear a thud and a squelch in the distance.\n\001");
           loseme();
           crapup("             S   P    L      A         T           !");
-       case 162:
-          bprintf("A trapdoor opens at your feet and you plumment downwards!\n");
-          curch= -140;trapch(curch);
-          return;
+case 162:bprintf("A trapdoor opens at your feet and you plumment downwards!\n");
+curch= -140;trapch(curch);
+return;
        case 130:
           if(state(132)==1)
              {
@@ -536,12 +533,13 @@ void /*anachronism*/
           if(state(150))
              {
              sendsys("","",-10000,oloc(150),"\001cThe drawbridge rises\n\001");
+ 
              sendsys("","",-10000,oloc(151),"\001cThe drawbridge rises\n\001");
              }
           else
              {
-             sendsys("","",-10000,oloc(150),"\001cThe drawbridge is lowered\n\001");
-             sendsys("","",-10000,oloc(151),"\001cThe drawbridge is lowered\n\001");
+             sendsys("","",-10000,oloc(150),"\001cThe drawbridge is lowered\n\001"); /*restoration*/
+             sendsys("","",-10000,oloc(151),"\001cThe drawbridge is lowered\n\001"); /*restoration*/
              }
           break;
        case 24:
@@ -634,7 +632,6 @@ void /*anachronism*/
     extern char globme[];
     extern long my_lev;
     extern long fighting,in_fight;
-    extern long my_sco;
     char/*long anachronism*/ ar[8*sizeof(long)/*anachronism*/];
     b=vichfb(&a);
     if(b== -1) return;
@@ -688,7 +685,6 @@ void /*anachronism*/
     extern long fighting,in_fight;    
     extern char globme[];
     extern long my_lev;
-    extern long my_sco;
     char/*long anachronism*/ ar[2*sizeof(long)/*anachronism*/];
     b=vichfb(&a);
     if(b== -1) return;
@@ -724,7 +720,6 @@ void /*anachronism*/
     extern char globme[];
     extern long my_lev;
     extern long fighting,in_fight;    
-    extern long my_sco;
     char/*long anachronism*/ ar[2*sizeof(long)/*anachronism*/];
     b=vichfb(&a);
     if(b== -1) return;
@@ -778,21 +773,20 @@ void /*anachronism*/
     if(b== -1) return;
     if(a==mynum)
        {
-       bprintf("With a sudden attack of morality the machine edits your persona\n");
+       bprintf("With a sudden attack of morality the machine edits your persona\n"); /*restoration*/
        loseme();
        crapup("Bye....... LINE TERMINATED - MORALITY REASONS");
        }
     sillytp(a,"gropes you");
     bprintf("<Well what sort of noise do you want here ?>\n");
     }
-
 void /*anachronism*/
  squeezecom()
     {
     extern long mynum;
     long a,b;
     b=vichere(&a);
-    if(b== -1) return;
+    if(b== -1) return; /*anachronism*/
     if(a==mynum)
        {
        bprintf("Ok....\n");
@@ -802,8 +796,8 @@ void /*anachronism*/
     sillytp(a,"gives you a squeeze\n");
     bprintf("You give them a squeeze\n");
     return;
+ 
     }
-
 void /*anachronism*/
  kisscom()
     {
@@ -834,7 +828,6 @@ void /*anachronism*/
        }
     sillytp(a,"cuddles you");
     }
-
 void /*anachronism*/
  hugcom()
     {
@@ -992,7 +985,7 @@ if(iscarrby(163,mynum)) i++;
     extern char globme[];
     char bk[256];
     if(strncmp(msg,"star",4)==0) 
-      sprintf(bk, "%s%s%s%s%s%s%s","\001s",globme,"\001",globme," ",msg,"\n\001");
+      sprintf(bk, "%s%s%s%s%s%s%s","\001s",globme,"\001",globme," ",msg,"\n\001"); /*restoration*/
     else
        sprintf(bk,"%s%s%s%s%s","\001p",globme,"\001 ",msg,"\n");
     sendsys(pname(per),globme,-10111,curch,bk);
@@ -1099,6 +1092,7 @@ long  ail_deaf=0;
              my_sex=1-my_sex;
              bprintf("You are now ");
              if(my_sex)bprintf("Female\n");
+ 
              else
                 bprintf("Male\n");
              calibme();
@@ -1123,7 +1117,7 @@ long  ail_deaf=0;
           if(iam(from)) break;
           if(isme==1)
              {
-             bprintf("\001p%s\001 touches you giving you a sudden electric shock!\n",from);
+             bprintf("\001p%s\001 touches you giving you a sudden electric shock!\n",from); /*restoration*/
              wounded(numarg(text));
              }
           break;
@@ -1199,7 +1193,6 @@ long  ail_deaf=0;
     bprintf("You are crippled\n");
     return(1);
     }
-
  chkblind()
     {
     extern long ail_blind;
@@ -1397,7 +1390,6 @@ void /*anachronism*/
     if(ocarrf(item)!=2) return(0);
     return(1);
     }
-
  addforce(x)
  char *x;
     {
@@ -1497,12 +1489,11 @@ blindcom()
 teletrap(newch)
 long newch;
 {
-       extern long curch;
        char block[200];
-       sprintf(block,"%s%s%s%s%s","\001s",globme,"\001",globme," has left.\n\001");
+       sprintf(block,"%s%s%s%s%s","\001s",globme,"\001",globme," has left.\n\001"); /*restoration*/
        sendsys(globme,globme,-10000,curch,block);
        curch=newch;
-       sprintf(block,"%s%s%s%s%s","\001s",globme,"\001",globme," has arrived.\n\001");
+       sprintf(block,"%s%s%s%s%s","\001s",globme,"\001",globme," has arrived.\n\001"); /*restoration*/
        sendsys(globme,globme,-10000,newch,block);
        trapch(curch);
 }

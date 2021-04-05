@@ -6,6 +6,7 @@
 void talker(nam)
 char *nam;
 {
+extern int/*long anachronism*/ ttyt;
 long isawiz;
 char z[60];
 x1:
@@ -40,9 +41,9 @@ case'1':
 cls();
 printf("The Hallway\n");
 printf("You stand in a long dark hallway, which echoes to the tread of your\n");
-printf("booted feet. You stride on down the hall, choose your masque and enter the\n");
+printf("booted feet. You stride on down the hall, choose your masque and enter the\n"); /*restoration*/
 printf("worlds beyond the known......\n\n");
- execl(EXE,"   --{----- ABERMUD -----}--      Playing as ",nam,NULL/*0 anachronism*/);
+execl(EXE,"   --{----- ABERMUD -----}--      Playing as ",nam,NULL/*0 anachronism*/);
 crapup("mud.exe: Not Found\n");
 case '2':chpwd(nam);break;
 case '0':exit(0);
