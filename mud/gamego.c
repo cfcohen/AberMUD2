@@ -41,13 +41,14 @@ void /*anachronism*/
 crapup(str)
 char *str;
 {
-extern long pr_due;
-static char *dashes =
-"-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-";
+	extern long pr_due;
 pbfr();
 pr_due=0;  /* So we dont get a prompt after the exit */ 
 keysetback();
-printf("\n%s\n\n%s\n\n%s\n", dashes, str, dashes);
+printf("\n\
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\
+\n\n%s\n\n\
+-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n", str); /*restoration*/
 exit(0);
 }
  
@@ -57,7 +58,7 @@ char *name;
 FILE *a;
 char b[128];
 a=openlock(name,"r+");
-while(fgets(b,128,a)) printf("%s\n",b);
+while(fgets(b,sizeof(b),a)/*gets(a,b) anachronism*/) printf("%s\n",b);
 fcloselock(a);
 }
  
@@ -96,7 +97,6 @@ sig_alon()
 
 unblock_alarm()
 {
-	/*extern int sig_occur(); anachronism*/
 	signal(SIGALRM,sig_occur);
 	if(sig_active) alarm(2);
 }
@@ -157,7 +157,7 @@ sig_oops(int x/*anachronism*/)
 void /*anachronism*/
 sig_ctrlc(int x/*anachronism*/)
 {
-	extern in_fight;
+	extern long/*anachronism*/ in_fight;
 	printf("^C\n");
 	if(in_fight) return;
 	sig_aloff();

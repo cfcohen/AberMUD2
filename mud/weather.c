@@ -104,7 +104,7 @@ void /*anachronism*/
  wthrrcv(type)
     {
     if(!outdoors()) return;
-    type=modifwthr(type);
+type=modifwthr(type);
     switch(type)
        {
        case 0:
@@ -118,9 +118,8 @@ void /*anachronism*/
        case 3:
           bprintf("\001cIt has started to snow\n\001");
           break;
-       case 4:
-          bprintf("\001cYou are half blinded by drifting snow, as a white, icy blizzard sweeps across\nthe land\n\001");
-          break;
+       	    case 4:
+          bprintf("\001cYou are half blinded by drifting snow, as a white, icy blizzard sweeps across\nthe land\n\001"); /*restoration*/
           }
     }
  
@@ -132,13 +131,13 @@ void /*anachronism*/
     switch(modifwthr(state(0)))
        {
        case 1:
-          if((curch>-199)&&(curch<-178))
-             {
-             bprintf("It is raining, a gentle mist of rain, which sticks to everything around\n");
-             bprintf("you making it glisten and shine. High in the skies above you is a rainbow\n");
-             }
-          else
-             bprintf("\001cIt is raining\n\001");
+if((curch>-199)&&(curch<-178))
+{
+bprintf("It is raining, a gentle mist of rain, which sticks to everything around\n"); /*restoration*/
+bprintf("you making it glisten and shine. High in the skies above you is a rainbow\n"); /*restoration*/
+}
+else
+          bprintf("\001cIt is raining\n\001");
           break;
        case 2:
           bprintf("\001cThe skies are dark and stormy\n\001");
@@ -146,27 +145,27 @@ void /*anachronism*/
        case 3:
           bprintf("\001cIt is snowing\001\n");
           break;
-       case 4:
-          bprintf("\001cA blizzard is howling around you\001\n");
-          break;
-       }
+       	   case 4:
+          	     bprintf("\001cA blizzard is howling around you\001\n");
+          	      break;
+          }
     }
  
  outdoors()
     {
     extern long curch;
-    switch(curch)
-       {
-       case -100:;
-       case -101:;
-       case -102:return(1);
-       case -183:return(0);
-       case -170:return(0);
-       default:
-          if((curch>-191)&&(curch<-168)) return(1);
-          if((curch>-172)&&(curch<-181)) return(1);
-          return(0);
-       }
+switch(curch)
+{
+case -100:;
+case -101:;
+case -102:return(1);
+case -183:return(0);
+case -170:return(0);
+default:
+if((curch>-191)&&(curch<-168)) return(1);
+if((curch>-172)&&(curch<-181)) return(1);
+return(0);
+}
     }
  
  
@@ -189,7 +188,6 @@ void /*anachronism*/
     sillycom("\001P%s\001\001d falls over laughing\n\001");
     bprintf("You start to laugh\n");
     }
- 
 void /*anachronism*/
  purrcom()
     {
@@ -197,7 +195,8 @@ void /*anachronism*/
     sillycom("\001P%s\001\001d starts purring\n\001");
     bprintf("MMMMEMEEEEEEEOOOOOOOWWWWWWW!!\n");
     }
-  
+ 
+ 
 void /*anachronism*/
  crycom()
     {
@@ -231,11 +230,11 @@ void /*anachronism*/
 long hasfarted=0;
 
 fartcom()
-    {
-    extern long hasfarted;
-    hasfarted=1;
-    sillycom("\001P%s\001\001d lets off a real rip roarer\n\001");
-    bprintf("Fine...\n");
+   {
+extern long hasfarted;
+hasfarted=1;
+sillycom("\001P%s\001\001d lets off a real rip roarer\n\001");
+bprintf("Fine...\n");
     }
  
  grincom()
@@ -284,12 +283,12 @@ void /*anachronism*/
        case 0:
           break;
        case 1:
-	sillycom("\001s%s\001%s throws out one arm and sends a huge bolt of fire high\n\
+	/*restoration*/sillycom("\001s%s\001%s throws out one arm and sends a huge bolt of fire high\n\
 into the sky\n\001");
           broad("\001cA massive ball of fire explodes high up in the sky\n\001");
           break;
        case 2:
-          sillycom("\001s%s\001%s turns casually into a hamster before resuming normal shape\n\001");
+          sillycom("\001s%s\001%s turns casually into a hamster before resuming normal shape\n\001"); /*restoration*/
           break;
        case 3:
           sillycom("\001s%s\001%s \
@@ -323,7 +322,6 @@ starts sizzling with magical energy\n\001");
     sillycom("\001s%s\001%s falls down and grovels in the dirt\n\001");
     bprintf("Ok\n");
     }
-
  yawncom()
     {
     sillycom("\001P%s\001\001d yawns\n\001");

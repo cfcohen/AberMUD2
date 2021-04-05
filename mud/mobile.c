@@ -123,7 +123,7 @@ void /*anachronism*/
     {
     long a ;
     char b[ 40 ] ;
-    char d[ 60/*40 anchronism*/ ] ;
+    char d[ 60/*40 anachronism*/ ] ;
     long c ;
     extern long my_lev ;
     extern long numobs ;

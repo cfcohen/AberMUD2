@@ -66,31 +66,31 @@ if(iscarrby(163,mynum)) c+=my_lev;
        bprintf("The spell fails....\n");
        return;
        }
-    if((a==fpbn("wraith"))||((iscarrby(32,a))||(iscarrby(159,a))||iscarrby(174,a)))
-       {
-       bprintf("Something stops your summoning from succeeding\n");
-       return;
-       }
+if((a==fpbn("wraith"))||((iscarrby(32,a))||(iscarrby(159,a))||iscarrby(174,a)))
+{
+bprintf("Something stops your summoning from succeeding\n");
+return;
+}
     if(a==mynum)
        {
        bprintf("Seems a waste of effort to me....\n");
        return;
        }
     if((curch>=-1082)&&(curch<=-1076))
-       {
-       bprintf("Something about this place makes you fumble the magic\n");
-       return;
-       }
+    {
+    	bprintf("Something about this place makes you fumble the magic\n");
+    	return;
+    }
 willwork:bprintf("You cast the summoning......\n");
     if(a<16)
        {
-       sendsys(pname(a),globme,-10020,curch,"");
+          sendsys(pname(a),globme,-10020,curch,"");
        return;
        }
-    if((a==17)||(a==23)) return;
+if((a==17)||(a==23)) return;
     dumpstuff(a,ploc(a));
     sprintf(seg,"\001s%s\001%s has arrived\n\001",pname(a),pname(a));
-    sendsys("","",-10000,curch,seg);
+sendsys("","",-10000,curch,seg);
     setploc(a,curch);
     return;
     sumob:;
@@ -107,7 +107,6 @@ willwork:bprintf("You cast the summoning......\n");
     desrm(oloc(a),ocarrf(a));
     setoloc(a,mynum,1);
     }
-
 void /*anachronism*/
  delcom()
     {
@@ -234,7 +233,7 @@ void /*anachronism*/
        }
     x=10;
     if(my_lev>9999) x=10000;
-    if((my_lev==10033)&&(brkword()!=-1)) x=numarg(wordbuf);
+if((my_lev==10033)&&(brkword()!=-1)) x=numarg(wordbuf);
     if(pvis(mynum)==x)
        {
        bprintf("You are already invisible\n");

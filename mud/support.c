@@ -123,7 +123,7 @@ long v;
 psexall(chr)
 long chr;
 {
-	extern long ublock[];
+	extern long /*ubk anachronism*/ublock[];
 	return(ublock[16*chr+9]);
 }
 
@@ -273,12 +273,12 @@ long mask;
 extern long numobs;
 auto a;
 extern long mynum;
-extern long objinfo[];
+extern long objinfo[]; /*anachronism*/
 a=0;
 mask=mask<<16;
 while(a<numobs)
 {
-  if(((iscarrby(a,mynum))||(ishere(a/*,mynum anachronism*/)))&&(objinfo[4*a+2]&mask))return(1);
+if(((iscarrby(a,mynum))||(ishere(a/*,mynum anachronism*/)))&&(objinfo[4*a+2]&mask))return(1);
 a++;
 }
 return(0);

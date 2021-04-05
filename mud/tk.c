@@ -13,7 +13,6 @@
  */
  
 #include "files.h"
-#include "flock.h"
 
 long i_setup=0;
 long oddcat=0;
@@ -94,7 +93,7 @@ long convflg=0;
 sendmsg(name)
  char *name;
     {
-    extern long debug_mode;
+    extern long/*int anachronism*/ debug_mode;
     extern char *sysbuf;
     extern long curch,moni,mynum;
     char prmpt[32];
@@ -269,7 +268,8 @@ intr:if(flock(fileno(unit),LOCK_EX)== -1)
     return(unit);
     }
  
-long findstart(unit)
+long /*anachronism*/
+ findstart(unit)
  FILE *unit;
     {
     long bk[2];
@@ -277,7 +277,8 @@ long findstart(unit)
     return(bk[0]);
     }
  
-long findend(unit)
+long /*anachronism*/
+ findend(unit)
  FILE *unit;
     {
     long bk[3];
@@ -373,7 +374,7 @@ long rd_qd=0;
           setphelping(mynum,-1);
           cuserid(us);
           sprintf(xy,"\001s%s\001%s  has entered the game\n\001",name,name);
-          sprintf(xx,"\001s%s\001[ %s  has entered the game ]\n\001",name,name);
+          sprintf(xx,"\001s%s\001[ %s  has entered the game ]\n\001",name,name); /*restoration*/
           sendsys(name,name,-10113,curch,xx);
           rte(name);
           if(randperc()>50)trapch(-5);
@@ -464,7 +465,7 @@ void /*anachronism*/
     extern long maxu;
     long ct,f;
     FILE *unit;
-    extern long iamon;
+    extern long/*anachronism*/ iamon;
     iamon=0;
     unit=openworld();
     ct=0;
@@ -506,7 +507,7 @@ char bk[128];
 extern char globme[];
 FILE *unit;  
 sig_aloff(); /* No interruptions while you are busy dying */
-			/* ABOUT 2 MINUTES OR SO */
+			 /*anachronism*//*  ABOUT 2 MINUTES OR SO */
 i_setup=0;
 			   
 unit=openworld();

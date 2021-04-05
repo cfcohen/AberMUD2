@@ -63,15 +63,15 @@ void hitplayer(victim,wpn)
     /* Chance to hit stuff */
     if((!iscarrby(wpn,mynum))&&(wpn!= -1))
        {
-       bprintf("You belatedly realise you dont have the %s,\nand are forced to use your hands instead..\n",oname(wpn));
+       bprintf("You belatedly realise you dont have the %s,\nand are forced to use your hands instead..\n",oname(wpn)); /*restoration*/
        if(wpnheld==wpn) wpnheld= -1;
        wpn= -1;
        }
     wpnheld=wpn;
     if((wpn==32)&&(iscarrby(16,victim)))
     {
-        bprintf("The runesword flashes back away from its target, growling in anger!\n");
-        return;
+        bprintf("The runesword flashes back away from its target, growling in anger!\n"); /*restoration*/
+    	return;
     }
     if(dambyitem(wpn)<0)
        {
@@ -218,7 +218,7 @@ void  bloodrcv(array,isme)
        if(my_lev<10){my_str-=array[1];
     if(array[0]==16) {
     	    my_sco-=100*array[1];
-	    bprintf("You feel weaker, as the wraiths icy touch seems to drain your very life force\n");
+	    bprintf("You feel weaker, as the wraiths icy touch seems to drain your very life force\n"); /*restoration*/
 	    if(my_sco<0) my_str= -1;
 	    }
     }
@@ -232,7 +232,7 @@ void  bloodrcv(array,isme)
           openworld();
           sprintf(ms,"\001p%s\001 has just died.\n",globme);
           sendsys(globme,globme,-10000,curch,ms);
-          sprintf(ms,"[ \001p%s\001 has been slain by \001p%s\001 ]\n",globme,pname(array[0]));
+          sprintf(ms,"[ \001p%s\001 has been slain by \001p%s\001 ]\n",globme,pname(array[0])); /*restoration*/
           sendsys(globme,globme,-10113,curch,ms);
           crapup("Oh dear... you seem to be slightly dead\n");
           }

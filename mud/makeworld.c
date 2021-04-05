@@ -1,6 +1,5 @@
 #include "anachronisms.h"
 #include <stdio.h>
-#include <string.h>
 
 /*
         World Creator
@@ -12,7 +11,7 @@ void main()
         FILE *a;
         long x[64];
         long b;
-        memset(x,0,64*sizeof(long));
+        memset(x,0,64*sizeof(long)); /*anachronism*/
         a=fopen(/*"/usr/tmp/-iy7AM" anachronism*/WORLD,"w");
         x[0]=1;
         x[1]=1;

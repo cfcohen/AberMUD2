@@ -11,7 +11,6 @@ extern char wordbuf[];
 extern long mynum;
 extern long curch;
 extern long my_lev;
-long getnarg();
 
 
 
@@ -204,7 +203,7 @@ oclrbit(107,0);
              {
              if((iscarrby(3+state(7),mynum))&&(otstbit(3+state(7),13)))
                 {
-                bprintf("Everything shimmers and then solidifies into a different view!\n");
+                bprintf("Everything shimmers and then solidifies into a different view!\n"); /*restoration*/
                 destroy(8);
                 teletrap(-1074);
                 return;

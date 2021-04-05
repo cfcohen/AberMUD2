@@ -14,10 +14,12 @@ struct zone
 typedef struct zone ZONE ;
 
 ZONE zoname[  ]={
-    "LIMBO", 1, "WSTORE", 2, "HOME", 4, "START", 5, "PIT", 6, "WIZROOM", 19, "DEAD", 99,
-    "BLIZZARD", 299, "CAVE", 399, "LABRNTH", 499, "FOREST", 599, "VALLEY", 699, "MOOR", 799,
-    "ISLAND", 899, "SEA", 999, "RIVER", 1049, "CASTLE", 1069, "TOWER", 1099, "HUT", 1101,
-    "TREEHOUSE", 1105, "QUARRY", 2199, "LEDGE", 2299, "INTREE", 2499, "WASTE", 99999
+    "LIMBO", 1, "WSTORE", 2, "HOME", 4, "START", 5, /*restoration*/
+    "PIT", 6, "WIZROOM", 19, "DEAD", 99, "BLIZZARD",299, "CAVE", 399,/*restoration*/
+    "LABRNTH", 499, "FOREST", 599, "VALLEY", 699, "MOOR", 799,/*restoration*/
+    "ISLAND", 899, "SEA", 999, "RIVER", 1049, "CASTLE", 1069,/*restoration*/
+    "TOWER", 1099, "HUT", 1101, "TREEHOUSE", 1105, "QUARRY", 2199,/*restoration*/
+    "LEDGE", 2299, "INTREE", 2499, "WASTE", 99999/*restoration*/
     } ;
 
  findzone( x, str )

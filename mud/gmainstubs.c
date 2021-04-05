@@ -4,7 +4,6 @@
 #include <sys/file.h>
 #include "object.h"
 #include "System.h"
-#include "flock.h"
 
 void qcrypt(in,out,len)
 char *in,*out;
