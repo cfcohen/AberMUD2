@@ -15,6 +15,7 @@
 #include <errno.h>
 #include <stdarg.h>
 #include <termios.h>
+#include <crypt.h>
 
 // blib.c
 char* cuserid(char* str);
